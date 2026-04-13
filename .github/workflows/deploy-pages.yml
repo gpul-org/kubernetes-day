@@ -21,11 +21,15 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Needed so Actions variables/secrets stored on the `github-pages` environment
+    # are available during `pnpm build` (only `deploy` had `environment` before).
+    environment: github-pages
     env:
       SITE_URL: https://gpul-org.github.io
       BASE_PATH: /kubernetes-day
-      PUBLIC_BOOKING_URL: ${{ vars.PUBLIC_BOOKING_URL }}
-      PUBLIC_RSVP_COUNT_URL: ${{ vars.PUBLIC_RSVP_COUNT_URL }}
+      # Repository/org Variables, or Secrets — webhook URLs are often added as secrets.
+      PUBLIC_BOOKING_URL: ${{ vars.PUBLIC_BOOKING_URL || secrets.PUBLIC_BOOKING_URL }}
+      PUBLIC_RSVP_COUNT_URL: ${{ vars.PUBLIC_RSVP_COUNT_URL || secrets.PUBLIC_RSVP_COUNT_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
