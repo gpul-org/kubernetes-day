@@ -1,0 +1,282 @@
+---
+import { RSVPForm } from '../components/RSVPForm';
+import { RSVPCount } from '../components/RSVPCount';
+import SectionHeading from '../components/SectionHeading.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import acoruna from '../assets/acoruna.png';
+import aesia from '../assets/aesia.png';
+import gdgCoruna from '../assets/gdg-coruna.png';
+import gpul from '../assets/gpul.svg';
+import k8s from '../assets/k8s.svg';
+import kelea from '../assets/kelea.svg';
+
+const agenda = [
+  {
+    time: '18:30 – 18:45',
+    title: 'Bienvenida y apertura institucional',
+    text: 'Arrancamos la jornada con contexto, objetivos y una apertura compartida por las entidades impulsoras.'
+  },
+  {
+    time: '18:45 – 19:45',
+    title: 'Ponencias técnicas',
+    text: 'Charlas sobre infraestructura cloud native, despliegue de IA y prácticas para operar modelos con garantías.'
+  },
+  {
+    time: '19:45 – 20:30',
+    title: 'Mesa redonda: IA Responsable y Cloud Native',
+    text: 'Conversación sobre regulación, supervisión y cómo aterrizar el “sentidiño” en decisiones técnicas reales.'
+  },
+  {
+    time: '20:30 – 22:00',
+    title: 'Networking & Dinner',
+    text: 'Cierre con catering y conversación abierta en Sala 9 para fortalecer la comunidad local.'
+  }
+];
+
+const goals = [
+  'Debatir qué infraestructura necesitamos para escalar IA en producción con Kubernetes.',
+  'Analizar el impacto de la regulación y la ética sobre la práctica técnica diaria.',
+  'Conectar a la comunidad tecnológica local en una sesión pensada para aprender, conversar y crear red.'
+];
+
+const entities = [
+  {
+    label: 'Organizan',
+    items: [
+      { alt: 'Logotipo de GDG A Coruña', className: 'logo-image--gdg', logo: gdgCoruna, shape: 'wide' },
+      { alt: 'Logotipo de GPUL', className: 'logo-image--gpul', logo: gpul, shape: 'square' }
+    ]
+  },
+  {
+    label: 'Patrocina',
+    items: [{ alt: 'Logotipo de Kelea', className: 'logo-image--kelea', logo: kelea, shape: 'wide' }]
+  },
+  {
+    label: 'Colaboran',
+    items: [
+      { alt: 'Logotipo de AESIA', className: 'logo-image--aesia', logo: aesia, shape: 'wide' },
+      { alt: 'Logotipo do Concello da Coruña', className: 'logo-image--acoruna', logo: acoruna, shape: 'wide' }
+    ]
+  }
+];
+
+const trustLogos = [
+  { alt: 'Logotipo de Kubernetes', className: 'logo-image--k8s', logo: k8s, shape: 'square' },
+  { alt: 'Logotipo de GDG A Coruña', className: 'logo-image--gdg', logo: gdgCoruna, shape: 'wide' },
+  { alt: 'Logotipo de GPUL', className: 'logo-image--gpul', logo: gpul, shape: 'square' },
+  { alt: 'Logotipo de Kelea', className: 'logo-image--kelea', logo: kelea, shape: 'wide' },
+  { alt: 'Logotipo de AESIA', className: 'logo-image--aesia', logo: aesia, shape: 'wide' }
+];
+
+function getLogoSrc(logo: typeof gdgCoruna | typeof gpul) {
+  return typeof logo === 'string' ? logo : logo.src;
+}
+---
+
+<BaseLayout
+  title="Kubernetes meets AI, con sentidiño"
+  description="Evento técnico en A Coruña sobre Kubernetes, IA responsable y comunidad. Reserva tu plaza para la jornada organizada por GDG A Coruña y GPUL."
+>
+  <main>
+    <section class="narrow-shell pt-6 pb-12 md:pt-8 md:pb-16">
+      <div class="event-shell rounded-[2rem] p-3 md:p-4">
+        <div class="event-card rounded-[1.7rem] px-5 py-5 md:px-8 md:py-8">
+          <nav class="mb-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div class="flex items-center gap-3">
+              <img alt="Kubernetes" class="logo-image logo-image--k8s h-8 w-auto" src={getLogoSrc(k8s)} />
+              <div>
+                <p class="text-sm font-medium tracking-tight text-[var(--color-text)]">Kubernetes Day A Coruña</p>
+                <p class="text-sm text-[var(--color-text-muted)]">Evento presencial</p>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-1 text-sm">
+              <a class="link-muted rounded-full px-3 py-2" href="#agenda">Agenda</a>
+              <a class="link-muted rounded-full px-3 py-2" href="#entidades">Entidades</a>
+              <a class="link-muted rounded-full px-3 py-2" href="#rsvp">RSVP</a>
+            </div>
+          </nav>
+
+          <div class="space-y-8">
+            <div class="space-y-5">
+              <div class="flex flex-wrap items-center gap-3">
+                <span class="pill-meta">Miércoles, 13 de mayo de 2026</span>
+                <span class="pill-meta">18:30 – 22:00</span>
+                <span class="pill-meta">Centro Ágora · A Coruña</span>
+              </div>
+              <h1 class="display-title max-w-3xl text-[3rem] font-semibold text-[var(--color-text)] md:text-[4.8rem]">
+                Kubernetes meets AI, con sentidiño
+              </h1>
+              <p class="max-w-2xl text-[1.06rem] leading-8 text-[var(--color-text-muted)] md:text-[1.16rem]">
+                Una jornada técnica sobre infraestructura cloud native, despliegue de IA y supervisión responsable. Comunidad, instituciones y ecosistema tecnológico en una sola tarde bien curada.
+              </p>
+            </div>
+
+            <div class="event-card rounded-[1.5rem] p-5 md:p-6">
+              <div class="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+                <div class="max-w-xl">
+                  <p class="eyebrow">Presentado por</p>
+                  <p class="mt-3 text-lg leading-8 text-[var(--color-text-muted)]">
+                    GDG A Coruña y GPUL, con participación de AESIA, apoyo de Kelea y colaboración del Concello de A Coruña.
+                  </p>
+                  <div class="mt-4">
+                    <RSVPCount client:load />
+                  </div>
+                </div>
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <a class="luma-button" href="#rsvp">Reservar plaza</a>
+                  <a class="subtle-button" href="#agenda">Ver agenda</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="soft-rule pt-6">
+              <p class="mb-4 text-sm font-medium text-[var(--color-text-muted)]">
+                Comunidad y partners
+              </p>
+              <div class="grid grid-cols-2 gap-3 md:grid-cols-5">
+                {trustLogos.map((item) => (
+                  <div class="logo-chip">
+                    <img
+                      alt={item.alt}
+                      class={`logo-image ${item.className}`}
+                      loading="lazy"
+                      src={getLogoSrc(item.logo)}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div class="soft-rule pt-6">
+              <div class="grid gap-0 md:grid-cols-3">
+                <div class="info-row px-0 py-4 md:border-r md:border-[var(--color-border)] md:px-5 md:py-0">
+                  <p class="text-sm text-[var(--color-text-muted)]">Aforo</p>
+                  <p class="mt-1 text-2xl font-semibold tracking-tight text-[var(--color-text)]">80 plazas</p>
+                </div>
+                <div class="info-row px-0 py-4 md:border-r md:border-[var(--color-border)] md:px-5 md:py-0">
+                  <p class="text-sm text-[var(--color-text-muted)]">Formato</p>
+                  <p class="mt-1 text-2xl font-semibold tracking-tight text-[var(--color-text)]">Charlas, mesa y networking</p>
+                </div>
+                <div class="info-row px-0 py-4 md:px-5 md:py-0">
+                  <p class="text-sm text-[var(--color-text-muted)]">Tono</p>
+                  <p class="mt-1 text-2xl font-semibold tracking-tight text-[var(--color-text)]">Cloud native con sentidiño</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="narrow-shell section-space">
+      <div class="grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:items-start">
+        <div class="max-w-sm">
+          <SectionHeading
+            eyebrow="Por qué asistir"
+            title="Una conversación técnica con impacto real"
+            text="El evento conecta la potencia de Kubernetes con el despliegue de IA en producción, sin separar la conversación técnica de la supervisión ética y regulatoria."
+          />
+        </div>
+
+        <div class="event-card rounded-[1.5rem] px-6 py-7 md:px-8">
+          <ul class="space-y-6 text-[1.05rem] leading-8 text-[var(--color-text-muted)]">
+            {goals.map((goal) => (
+              <li class="flex gap-4">
+                <span class="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--color-accent)]"></span>
+                <span>{goal}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="agenda" class="narrow-shell section-space">
+      <div class="space-y-10">
+        <SectionHeading
+          eyebrow="Agenda"
+          title="De la infraestructura al debate regulatorio"
+          text="Una agenda compacta para concentrar contexto, visión técnica y conversación de comunidad en una sola tarde."
+        />
+
+        <div class="schedule-list event-card rounded-[1.7rem]">
+          {agenda.map((item) => (
+            <article class="grid gap-5 px-6 py-7 md:grid-cols-[190px_1fr] md:px-8 md:py-8">
+              <div>
+                <p class="schedule-time text-sm font-semibold">
+                  {item.time}
+                </p>
+              </div>
+              <div class="space-y-3">
+                <h3 class="text-[1.8rem] font-semibold tracking-tight text-[var(--color-text)]">
+                  {item.title}
+                </h3>
+                <p class="text-base leading-7 text-[var(--color-text-muted)]">{item.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="entidades" class="narrow-shell section-space">
+      <div class="space-y-10">
+        <div class="max-w-2xl">
+          <SectionHeading
+            eyebrow="Entidades participantes"
+            title="Hosts, sponsor e instituciones"
+            text="Una composición más próxima a una página de evento: clara, centrada y basada en señales de confianza bien presentadas."
+          />
+        </div>
+
+        <div class="space-y-4">
+          {entities.map((group) => (
+            <article class="event-card rounded-[1.5rem] px-6 py-6 md:px-8">
+              <div class="flex flex-col gap-6 md:flex-row md:items-center">
+                <p class="eyebrow">
+                  {group.label}
+                </p>
+                <ul class="grid flex-1 gap-3 sm:grid-cols-2">
+                {group.items.map((item) => (
+                  <li class="logo-chip min-h-[84px]">
+                    <img
+                      alt={item.alt}
+                      class={`logo-image ${item.className}`}
+                      loading="lazy"
+                      src={getLogoSrc(item.logo)}
+                    />
+                  </li>
+                ))}
+                </ul>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="rsvp" class="narrow-shell pb-24">
+      <div class="grid gap-10 md:grid-cols-[0.82fr_1.18fr] md:items-start">
+        <div class="max-w-sm">
+          <SectionHeading
+            eyebrow="Reserva"
+            title="Aforo limitado. Únete a la jornada."
+            text="La inscripción está pensada para ser rápida: solo te pediremos los datos necesarios para la reserva y la gestión del catering."
+          />
+
+          <div class="subtle-card mt-8 rounded-[1.5rem] p-5 md:p-6">
+            <p class="text-sm font-semibold text-[var(--color-text)]">Detalles clave</p>
+            <ul class="mt-4 space-y-3 text-sm leading-6 text-[var(--color-text-muted)]">
+              <li>Fecha: miércoles, 13 de mayo de 2026</li>
+              <li>Horario: 18:30 – 22:00</li>
+              <li>Ubicación: Sala 9, Centro Ágora, A Coruña</li>
+              <li>Incluye networking y dinner para asistentes confirmados</li>
+            </ul>
+          </div>
+        </div>
+
+        <RSVPForm client:load />
+      </div>
+    </section>
+  </main>
+</BaseLayout>
