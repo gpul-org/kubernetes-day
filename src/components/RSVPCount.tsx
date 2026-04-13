@@ -70,7 +70,7 @@ export function RSVPCount() {
   return (
     <p className="text-sm text-[var(--color-text-muted)]">
       <span className="font-semibold text-[var(--color-text)]">{state.count}</span>{' '}
-      {attendeeLabel}. Reserva antes de que se complete el aforo.
+      {attendeeLabel}. Si te interesa venir, reserva tu plaza con tiempo.
     </p>
   );
 }

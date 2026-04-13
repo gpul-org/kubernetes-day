@@ -13,30 +13,30 @@ import kelea from '../assets/kelea.svg';
 const agenda = [
   {
     time: '18:30 – 18:45',
-    title: 'Bienvenida y apertura institucional',
-    text: 'Arrancamos la jornada con contexto, objetivos y una apertura compartida por las entidades impulsoras.'
+    title: 'Bienvenida y apertura',
+    text: 'Arranque de la jornada y presentación del enfoque del encuentro.'
   },
   {
-    time: '18:45 – 19:45',
-    title: 'Ponencias técnicas',
-    text: 'Charlas sobre infraestructura cloud native, despliegue de IA y prácticas para operar modelos con garantías.'
+    time: '18:45 – 20:15',
+    title: 'Charlas técnicas',
+    text: 'Bloque de charlas sobre infraestructura cloud native, despliegue de IA y operación de sistemas en producción.'
   },
   {
-    time: '19:45 – 20:30',
+    time: '20:15 – 21:00',
     title: 'Mesa redonda: IA Responsable y Cloud Native',
-    text: 'Conversación sobre regulación, supervisión y cómo aterrizar el “sentidiño” en decisiones técnicas reales.'
+    text: 'Conversación sobre regulación, supervisión y el impacto de estas decisiones en el trabajo técnico.'
   },
   {
-    time: '20:30 – 22:00',
-    title: 'Networking & Dinner',
-    text: 'Cierre con catering y conversación abierta en Sala 9 para fortalecer la comunidad local.'
+    time: '21:00 – 22:00',
+    title: 'Networking con cena',
+    text: 'Cierre de la jornada con catering y tiempo para conversar con el resto de asistentes.'
   }
 ];
 
 const goals = [
-  'Debatir qué infraestructura necesitamos para escalar IA en producción con Kubernetes.',
-  'Analizar el impacto de la regulación y la ética sobre la práctica técnica diaria.',
-  'Conectar a la comunidad tecnológica local en una sesión pensada para aprender, conversar y crear red.'
+  'Escuchar una conversación práctica sobre cómo llevar IA a producción sobre infraestructura cloud native.',
+  'Entender mejor cómo afectan la regulación y la supervisión al trabajo técnico diario.',
+  'Compartir la tarde con perfiles de comunidad, empresa e instituciones en un formato pensado para conversar con calma.'
 ];
 
 const entities = [
@@ -107,7 +107,7 @@ function getLogoSrc(logo: typeof gdgCoruna | typeof gpul) {
                 Kubernetes meets AI, con sentidiño
               </h1>
               <p class="max-w-2xl text-[1.06rem] leading-8 text-[var(--color-text-muted)] md:text-[1.16rem]">
-                Una jornada técnica sobre infraestructura cloud native, despliegue de IA y supervisión responsable. Comunidad, instituciones y ecosistema tecnológico en una sola tarde bien curada.
+                Un encuentro técnico en A Coruña para hablar de Kubernetes, IA en producción y supervisión responsable, con charlas, mesa redonda y una cena final para seguir la conversación.
               </p>
             </div>
 
@@ -116,7 +116,7 @@ function getLogoSrc(logo: typeof gdgCoruna | typeof gpul) {
                 <div class="max-w-xl">
                   <p class="eyebrow">Presentado por</p>
                   <p class="mt-3 text-lg leading-8 text-[var(--color-text-muted)]">
-                    GDG A Coruña y GPUL, con participación de AESIA, apoyo de Kelea y colaboración del Concello de A Coruña.
+                    Organizan GDG A Coruña y GPUL, con participación de AESIA, apoyo de Kelea y colaboración del Concello de A Coruña.
                   </p>
                   <div class="mt-4">
                     <RSVPCount client:load />
@@ -131,7 +131,7 @@ function getLogoSrc(logo: typeof gdgCoruna | typeof gpul) {
 
             <div class="soft-rule pt-6">
               <p class="mb-4 text-sm font-medium text-[var(--color-text-muted)]">
-                Comunidad y partners
+                Organizan, patrocinan y colaboran
               </p>
               <div class="grid grid-cols-2 gap-3 md:grid-cols-5">
                 {trustLogos.map((item) => (
@@ -155,11 +155,11 @@ function getLogoSrc(logo: typeof gdgCoruna | typeof gpul) {
                 </div>
                 <div class="info-row px-0 py-4 md:border-r md:border-[var(--color-border)] md:px-5 md:py-0">
                   <p class="text-sm text-[var(--color-text-muted)]">Formato</p>
-                  <p class="mt-1 text-2xl font-semibold tracking-tight text-[var(--color-text)]">Charlas, mesa y networking</p>
+                  <p class="mt-1 text-2xl font-semibold tracking-tight text-[var(--color-text)]">Charlas, mesa redonda y cena</p>
                 </div>
                 <div class="info-row px-0 py-4 md:px-5 md:py-0">
-                  <p class="text-sm text-[var(--color-text-muted)]">Tono</p>
-                  <p class="mt-1 text-2xl font-semibold tracking-tight text-[var(--color-text)]">Cloud native con sentidiño</p>
+                  <p class="text-sm text-[var(--color-text-muted)]">Enfoque</p>
+                  <p class="mt-1 text-2xl font-semibold tracking-tight text-[var(--color-text)]">Kubernetes, IA y responsabilidad</p>
                 </div>
               </div>
             </div>
@@ -173,8 +173,8 @@ function getLogoSrc(logo: typeof gdgCoruna | typeof gpul) {
         <div class="max-w-sm">
           <SectionHeading
             eyebrow="Por qué asistir"
-            title="Una conversación técnica con impacto real"
-            text="El evento conecta la potencia de Kubernetes con el despliegue de IA en producción, sin separar la conversación técnica de la supervisión ética y regulatoria."
+            title="Una tarde para hablar de producción, regulación y comunidad"
+            text="El programa está pensado para perfiles técnicos que quieren entender mejor cómo se cruzan la infraestructura, la IA y las decisiones de supervisión."
           />
         </div>
 
@@ -195,8 +195,8 @@ function getLogoSrc(logo: typeof gdgCoruna | typeof gpul) {
       <div class="space-y-10">
         <SectionHeading
           eyebrow="Agenda"
-          title="De la infraestructura al debate regulatorio"
-          text="Una agenda compacta para concentrar contexto, visión técnica y conversación de comunidad en una sola tarde."
+          title="Así será la tarde"
+          text="Un formato sencillo: bienvenida, bloque de charlas, mesa redonda y cierre con cena para seguir conversando."
         />
 
         <div class="schedule-list event-card rounded-[1.7rem]">
@@ -224,8 +224,8 @@ function getLogoSrc(logo: typeof gdgCoruna | typeof gpul) {
         <div class="max-w-2xl">
           <SectionHeading
             eyebrow="Entidades participantes"
-            title="Hosts, sponsor e instituciones"
-            text="Una composición más próxima a una página de evento: clara, centrada y basada en señales de confianza bien presentadas."
+            title="Quién está detrás del evento"
+            text="El encuentro está impulsado por comunidad técnica, empresa e instituciones vinculadas al debate sobre IA y su aplicación real."
           />
         </div>
 
@@ -261,7 +261,7 @@ function getLogoSrc(logo: typeof gdgCoruna | typeof gpul) {
           <SectionHeading
             eyebrow="Reserva"
             title="Aforo limitado. Únete a la jornada."
-            text="La inscripción está pensada para ser rápida: solo te pediremos los datos necesarios para la reserva y la gestión del catering."
+            text="La asistencia requiere inscripción previa. Solo te pediremos los datos necesarios para confirmar tu plaza y organizar el catering."
           />
 
           <div class="subtle-card mt-8 rounded-[1.5rem] p-5 md:p-6">
@@ -270,7 +270,7 @@ function getLogoSrc(logo: typeof gdgCoruna | typeof gpul) {
               <li>Fecha: miércoles, 13 de mayo de 2026</li>
               <li>Horario: 18:30 – 22:00</li>
               <li>Ubicación: Sala 9, Centro Ágora, A Coruña</li>
-              <li>Incluye networking y dinner para asistentes confirmados</li>
+              <li>La jornada termina con networking con cena para asistentes confirmados</li>
             </ul>
           </div>
         </div>
