@@ -65,12 +65,14 @@ export function RSVPCount() {
     );
   }
 
-  const attendeeLabel = state.count === 1 ? 'persona ya apuntada' : 'personas ya apuntadas';
+  const attendeeLabel = state.count === 1 ? 'Persona ya apuntada' : 'Personas apuntadas';
 
   return (
-    <p className="text-sm text-[var(--color-text-muted)]">
-      <span className="font-semibold text-[var(--color-text)]">{state.count}</span>{' '}
-      {attendeeLabel}. Si te interesa venir, reserva tu plaza con tiempo.
-    </p>
+    <div className="flex items-baseline gap-2">
+      <span className="text-4xl font-black tracking-tighter text-black">{state.count}</span>
+      <span className="text-xs font-black uppercase tracking-widest text-zinc-600">
+        {attendeeLabel}
+      </span>
+    </div>
   );
 }

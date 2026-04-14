@@ -8,10 +8,10 @@ interface Props {
 const { eyebrow, text, title } = Astro.props;
 ---
 
-<div class="max-w-2xl space-y-4">
-  <p class="eyebrow">
+<div class="max-w-2xl space-y-6">
+  <p class="inline-block bg-black px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-white">
     {eyebrow}
   </p>
-  <h2 class="section-title text-3xl font-semibold md:text-4xl">{title}</h2>
-  {text && <p class="body-copy text-base leading-7 md:text-lg">{text}</p>}
+  <h2 class="text-4xl font-black uppercase leading-[0.9] tracking-tighter text-black md:text-6xl">{title}</h2>
+  {text && <p class="max-w-xl text-lg font-medium leading-relaxed text-zinc-700 md:text-xl">{text}</p>}
 </div>

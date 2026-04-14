@@ -18,13 +18,28 @@ const { description, title } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gpul-org.github.io/kubernetes-day/" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://gpul-org.github.io/kubernetes-day/meta-1.png" />
+
+    <!-- X (Twitter) -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://gpul-org.github.io/kubernetes-day/" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content="https://gpul-org.github.io/kubernetes-day/meta-1.png" />
+
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-[var(--color-page)] text-[var(--color-text)] antialiased">
-    <div class="page-bg"></div>
+  <body class="min-h-screen bg-white text-black bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] antialiased selection:bg-yellow-300">
     <slot />
   </body>
 </html>

@@ -31,7 +31,7 @@ const BOOKING_URL = import.meta.env.PUBLIC_BOOKING_URL;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const fieldClassName =
-  'mt-2 w-full rounded-[1.1rem] border px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[var(--color-accent)] focus:ring-4 focus:ring-blue-100/80';
+  'mt-2 w-full border-2 border-black bg-white px-4 py-3 text-sm font-bold text-black outline-none transition placeholder:text-zinc-400 focus:bg-yellow-50 focus:ring-4 focus:ring-black';
 
 function validate(values: FormValues): ValidationErrors {
   const errors: ValidationErrors = {};
@@ -74,7 +74,7 @@ export function RSVPForm() {
   const isSubmitting = submitState.kind === 'loading';
 
   const submitLabel =
-    submitState.kind === 'loading' ? 'Enviando solicitud...' : 'Reservar plaza';
+    submitState.kind === 'loading' ? 'Enviando...' : 'Reservar mi plaza';
 
   const soldOut = submitState.kind === 'sold-out';
   const success = submitState.kind === 'success';
@@ -165,87 +165,89 @@ export function RSVPForm() {
   }
 
   return (
-    <div className="rounded-[1.7rem] border border-[var(--color-border)] bg-white p-6 shadow-[var(--color-shadow)] md:p-8">
-      <div className="mb-7 space-y-3">
-        <p className="eyebrow">
-          RSVP
+    <div className="border-4 border-black bg-white p-6 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] md:p-10">
+      <div className="mb-10 space-y-4">
+        <p className="inline-block bg-black px-2 py-0.5 text-xs font-black uppercase tracking-widest text-white">
+          Inscripción
         </p>
-        <h3 className="text-[2rem] font-semibold tracking-tight text-slate-900">
-          Reserva tu plaza
+        <h3 className="text-4xl font-black uppercase leading-none tracking-tighter text-black md:text-5xl">
+          Apúntate ya
         </h3>
-        <p className="text-sm leading-6 text-slate-600">
-          El aforo está limitado a 80 personas. Recogeremos la información
-          imprescindible para confirmar asistencia y coordinar el catering.
+        <p className="text-lg font-bold leading-tight text-zinc-600">
+          Aforo limitado a 80 personas. Solo te pediremos lo mínimo para organizar el evento.
         </p>
       </div>
 
       {!isConfigured && (
-        <div className="mb-6 rounded-[1.1rem] border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
-          `PUBLIC_BOOKING_URL` todavía no está definida. El formulario funciona
-          visualmente, pero no enviará registros reales hasta configurarla.
+        <div className="mb-8 border-4 border-black bg-amber-200 p-4 text-sm font-black uppercase leading-tight text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          `PUBLIC_BOOKING_URL` NO CONFIGURADA. EL FORMULARIO ESTÁ EN MODO PRUEBA.
         </div>
       )}
 
-      <form className="space-y-5" onSubmit={handleSubmit} noValidate>
-        <div className="grid gap-5 md:grid-cols-2">
-          <label className="block text-sm font-medium text-slate-800">
+      <form className="space-y-6" onSubmit={handleSubmit} noValidate>
+        <div className="grid gap-6 md:grid-cols-2">
+          <label className="block text-xs font-black uppercase tracking-widest text-black">
             Nombre completo
             <input
               autoComplete="name"
-              className={`${fieldClassName} border-slate-200 bg-white`}
+              className={fieldClassName}
               disabled={isSubmitting || soldOut || success}
               name="fullName"
               onChange={(event) =>
                 setValues((current) => ({ ...current, fullName: event.target.value }))
               }
-              placeholder="Ada Lovelace"
+              placeholder="E.g. Alan Turing"
               value={values.fullName}
             />
             {errors.fullName && (
-              <span className="mt-2 block text-xs text-rose-600">{errors.fullName}</span>
+              <span className="mt-2 block bg-red-600 px-2 py-0.5 text-[10px] font-black uppercase text-white">
+                {errors.fullName}
+              </span>
             )}
           </label>
 
-          <label className="block text-sm font-medium text-slate-800">
+          <label className="block text-xs font-black uppercase tracking-widest text-black">
             Posición / cargo
             <input
               autoComplete="organization-title"
-              className={`${fieldClassName} border-slate-200 bg-white`}
+              className={fieldClassName}
               disabled={isSubmitting || soldOut || success}
               name="role"
               onChange={(event) =>
                 setValues((current) => ({ ...current, role: event.target.value }))
               }
-              placeholder="Platform Engineer"
+              placeholder="E.g. Platform Engineer"
               value={values.role}
             />
             {errors.role && (
-              <span className="mt-2 block text-xs text-rose-600">{errors.role}</span>
+              <span className="mt-2 block bg-red-600 px-2 py-0.5 text-[10px] font-black uppercase text-white">
+                {errors.role}
+              </span>
             )}
           </label>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2">
-          <label className="block text-sm font-medium text-slate-800">
+        <div className="grid gap-6 md:grid-cols-2">
+          <label className="block text-xs font-black uppercase tracking-widest text-black">
             Empresa
             <input
               autoComplete="organization"
-              className={`${fieldClassName} border-slate-200 bg-white`}
+              className={fieldClassName}
               disabled={isSubmitting || soldOut || success}
               name="company"
               onChange={(event) =>
                 setValues((current) => ({ ...current, company: event.target.value }))
               }
-              placeholder="Tu empresa u organización"
+              placeholder="Tu organización"
               value={values.company}
             />
           </label>
 
-          <label className="block text-sm font-medium text-slate-800">
+          <label className="block text-xs font-black uppercase tracking-widest text-black">
             Correo electrónico
             <input
               autoComplete="email"
-              className={`${fieldClassName} border-slate-200 bg-white`}
+              className={fieldClassName}
               disabled={isSubmitting || soldOut || success}
               name="email"
               onChange={(event) =>
@@ -256,15 +258,17 @@ export function RSVPForm() {
               value={values.email}
             />
             {errors.email && (
-              <span className="mt-2 block text-xs text-rose-600">{errors.email}</span>
+              <span className="mt-2 block bg-red-600 px-2 py-0.5 text-[10px] font-black uppercase text-white">
+                {errors.email}
+              </span>
             )}
           </label>
         </div>
 
-        <label className="block text-sm font-medium text-slate-800">
-          Alergias o restricciones alimentarias
+        <label className="block text-xs font-black uppercase tracking-widest text-black">
+          Restricciones alimentarias
           <textarea
-            className={`${fieldClassName} min-h-32 resize-y border-slate-200 bg-white`}
+            className={`${fieldClassName} min-h-32 resize-none`}
             disabled={isSubmitting || soldOut || success}
             name="dietaryRestrictions"
             onChange={(event) =>
@@ -273,18 +277,18 @@ export function RSVPForm() {
                 dietaryRestrictions: event.target.value
               }))
             }
-            placeholder="Indica alergias, intolerancias o si necesitas una opción específica."
+            placeholder="Alergias, intolerancias, opción vegana..."
             value={values.dietaryRestrictions}
           />
           {errors.dietaryRestrictions && (
-            <span className="mt-2 block text-xs text-rose-600">
+            <span className="mt-2 block bg-red-600 px-2 py-0.5 text-[10px] font-black uppercase text-white">
               {errors.dietaryRestrictions}
             </span>
           )}
         </label>
 
         <button
-          className="inline-flex w-full items-center justify-center rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full border-4 border-black bg-red-500 py-4 text-xl font-black uppercase text-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all hover:-translate-y-1 hover:bg-red-600 hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] active:translate-y-0 active:shadow-none disabled:cursor-not-allowed disabled:opacity-50"
           disabled={isSubmitting || soldOut || success}
           type="submit"
         >
@@ -294,12 +298,12 @@ export function RSVPForm() {
 
       {submitState.kind !== 'idle' && submitState.kind !== 'loading' && (
         <div
-          className={`mt-5 rounded-[1.1rem] px-4 py-3 text-sm leading-6 ${
+          className={`mt-8 border-4 border-black p-4 text-sm font-black uppercase leading-tight shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
             submitState.kind === 'success'
-              ? 'border border-emerald-200 bg-emerald-50 text-emerald-800'
+              ? 'bg-emerald-400 text-black'
               : submitState.kind === 'sold-out'
-                ? 'border border-amber-200 bg-amber-50 text-amber-800'
-                : 'border border-rose-200 bg-rose-50 text-rose-700'
+                ? 'bg-amber-400 text-black'
+                : 'bg-red-600 text-white'
           }`}
         >
           {submitState.message}
