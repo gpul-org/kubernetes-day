@@ -174,7 +174,7 @@ export function RSVPForm() {
           Apúntate ya
         </h3>
         <p className="text-lg font-bold leading-tight text-zinc-600">
-          Aforo limitado a 80 personas. Solo te pediremos lo mínimo para organizar el evento.
+          Aforo limitado a 80 personas.
         </p>
       </div>
 
@@ -298,13 +298,12 @@ export function RSVPForm() {
 
       {submitState.kind !== 'idle' && submitState.kind !== 'loading' && (
         <div
-          className={`mt-8 border-4 border-black p-4 text-sm font-black uppercase leading-tight shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
-            submitState.kind === 'success'
-              ? 'bg-emerald-400 text-black'
-              : submitState.kind === 'sold-out'
-                ? 'bg-amber-400 text-black'
-                : 'bg-red-600 text-white'
-          }`}
+          className={`mt-8 border-4 border-black p-4 text-sm font-black uppercase leading-tight shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${submitState.kind === 'success'
+            ? 'bg-emerald-400 text-black'
+            : submitState.kind === 'sold-out'
+              ? 'bg-amber-400 text-black'
+              : 'bg-red-600 text-white'
+            }`}
         >
           {submitState.message}
         </div>
