@@ -28,6 +28,7 @@ interface AgendaItem {
   title: string;
   text: string;
   speakers?: Speaker[];
+  logo?: ImageMetadata;
 }
 
 const agenda: AgendaItem[] = [
@@ -69,7 +70,8 @@ const agenda: AgendaItem[] = [
   {
     time: '21:00 – 22:00',
     title: 'Networking con cena',
-    text: 'Cierre de la jornada con catering y tiempo para conversar con el resto de asistentes.'
+    text: 'Cierre de la jornada con catering y tiempo para conversar con el resto de asistentes.',
+    logo: kelea
   }
 ];
 
@@ -266,9 +268,17 @@ function getLogoImageClasses(className: string) {
                 </p>
               </div>
               <div class="space-y-4">
-                <h3 class="text-3xl font-black uppercase leading-none tracking-tighter text-black md:text-4xl">
-                  {item.title}
-                </h3>
+                <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                  <h3 class="text-3xl font-black uppercase leading-none tracking-tighter text-black md:text-4xl">
+                    {item.title}
+                  </h3>
+                  {item.logo && (
+                    <div class="flex items-center gap-3 border-2 border-black bg-yellow-300 px-3 py-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rotate-[-1deg] w-fit">
+                      <span class="text-[10px] font-black uppercase tracking-tighter text-black">Ofrecido por</span>
+                      <img src={item.logo.src} alt="Kelea" class="h-6 w-auto" />
+                    </div>
+                  )}
+                </div>
                 <p class="text-lg font-medium leading-relaxed text-zinc-700">{item.text}</p>
                 {item.speakers && (
                   <div class="grid gap-6 pt-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -359,7 +369,7 @@ function getLogoImageClasses(className: string) {
               <li class="flex gap-2"><span>•</span> <span>Miércoles, 13 de mayo de 2026</span></li>
               <li class="flex gap-2"><span>•</span> <span>18:30 – 22:00</span></li>
               <li class="flex gap-2"><span>•</span> <span>Centro Ágora, A Coruña</span></li>
-              <li class="flex gap-2"><span>•</span> <span>Cena networking incluida</span></li>
+              <li class="flex gap-2"><span>•</span> <span>Cena networking (ofrecida por Kelea)</span></li>
             </ul>
           </div>
         </div>
