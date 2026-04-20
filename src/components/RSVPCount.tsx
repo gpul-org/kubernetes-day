@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 
 const COUNT_URL = import.meta.env.PUBLIC_RSVP_COUNT_URL;
+export const RSVP_LIMIT = 80;
 
-type CountState =
+export type CountState =
   | { kind: 'loading' }
   | { kind: 'ready'; count: number }
   | { kind: 'error' };
 
-export function RSVPCount() {
+export function useRSVPCount() {
   const [state, setState] = useState<CountState>({ kind: 'loading' });
-
   useEffect(() => {
     let cancelled = false;
 
@@ -52,6 +52,12 @@ export function RSVPCount() {
       cancelled = true;
     };
   }, []);
+
+  return state;
+}
+
+export function RSVPCount() {
+  const state = useRSVPCount();
 
   if (state.kind === 'error') {
     return null;

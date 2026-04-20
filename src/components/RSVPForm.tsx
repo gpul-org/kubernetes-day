@@ -1,5 +1,6 @@
 import { startTransition, useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
+import { RSVP_LIMIT, useRSVPCount } from './RSVPCount';
 
 type FormValues = {
   company: string;
@@ -69,12 +70,19 @@ export function RSVPForm() {
   const [values, setValues] = useState<FormValues>(INITIAL_VALUES);
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [submitState, setSubmitState] = useState<SubmitState>({ kind: 'idle' });
+  const countState = useRSVPCount();
 
   const isConfigured = useMemo(() => Boolean(BOOKING_URL), []);
   const isSubmitting = submitState.kind === 'loading';
+  const isWaitlist =
+    countState.kind === 'ready' && countState.count > RSVP_LIMIT;
 
   const submitLabel =
-    submitState.kind === 'loading' ? 'Enviando...' : 'Reservar mi plaza';
+    submitState.kind === 'loading'
+      ? 'Enviando...'
+      : isWaitlist
+        ? 'Unirme a la lista de espera'
+        : 'Reservar mi plaza';
 
   const soldOut = submitState.kind === 'sold-out';
   const success = submitState.kind === 'success';
@@ -176,6 +184,11 @@ export function RSVPForm() {
         <p className="text-lg font-bold leading-tight text-zinc-600">
           Aforo limitado a 80 personas.
         </p>
+        {isWaitlist && (
+          <p className="inline-block border-2 border-black bg-zinc-100 px-3 py-2 text-xs font-black uppercase leading-tight tracking-wide text-black">
+            Aforo completo. Si te apuntas ahora, entrarás en lista de espera. Estamos trabajando para encontrar un espacio mejor y poder acoger a más gente.
+          </p>
+        )}
       </div>
 
       {!isConfigured && (
