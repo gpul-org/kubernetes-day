@@ -182,7 +182,7 @@ export function RSVPForm() {
           Apúntate ya
         </h3>
         <p className="text-lg font-bold leading-tight text-zinc-600">
-          Aforo limitado a 80 personas.
+          Aforo limitado a 150 personas.
         </p>
         {isWaitlist && (
           <p className="inline-block border-2 border-black bg-zinc-100 px-3 py-2 text-xs font-black uppercase leading-tight tracking-wide text-black">

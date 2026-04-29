@@ -7,28 +7,39 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import acoruna from '../assets/acoruna.png';
 import aesia from '../assets/aesia.png';
 import aojea from '../assets/aojea.jpg';
+import christianLopezBalsa from '../assets/christian-lopez-balsa.jpg';
 import cncfGalicia from '../assets/cncf-galicia.jpg';
 import csanchez from '../assets/csanchez.jpg';
 import dmellado from '../assets/dmellado.jpg';
 import gdgCoruna from '../assets/gdg-coruna.png';
 import gpul from '../assets/gpul.svg';
+import inditextech from '../assets/inditextech.svg';
 import k8s from '../assets/k8s.svg';
 import kelea from '../assets/kelea.svg';
+import lauraLodeiro from '../assets/laura-lodeiro.jpg';
 import sysarmyGalicia from '../assets/sysarmy-galicia.png';
 
 interface Speaker {
+  abstract: string;
   name: string;
   role: string;
   image: ImageMetadata;
   linkedin: string;
+  slug: string;
+  talkTitle: string;
 }
 
 interface AgendaItem {
   time: string;
   title: string;
   text: string;
+  participants?: {
+    image: ImageMetadata;
+    name: string;
+    role: string;
+    tag: string;
+  }[];
   speakers?: Speaker[];
-  logo?: ImageMetadata;
 }
 
 const agenda: AgendaItem[] = [
@@ -43,35 +54,60 @@ const agenda: AgendaItem[] = [
     text: 'Bloque de charlas sobre infraestructura cloud native, despliegue de IA y operación de sistemas en producción.',
     speakers: [
       {
+        abstract:
+          'Kubernetes cumplió diez años en un momento de inflexión. Antonio Ojea compartirá una visión desde dentro del proyecto sobre cómo Kubernetes puede seguir siendo relevante en el cruce entre infraestructura, IA y agentes. Hablará de la evolución del orquestador para soportar entrenamiento e inferencia, de los nuevos flujos de agentes y de los problemas reales que la IA generativa ya está introduciendo en la comunidad, desde el impacto legal del código generado automáticamente hasta la presión operativa sobre los mantenedores.',
         name: 'Antonio Ojea',
         role: 'Senior Staff Engineer @ Google, Steering Comittee Kubernetes.',
         image: aojea,
-        linkedin: 'https://www.linkedin.com/in/ajojea/'
+        linkedin: 'https://www.linkedin.com/in/ajojea/',
+        slug: 'antonio-ojea',
+        talkTitle: 'Diario de un Core Maintainer: Kubernetes ante el dilema de la IA'
       },
       {
+        abstract:
+          'Carlos Sánchez abordará qué ocurre cuando el coste de escribir código tiende a cero. A partir de ejemplos concretos, hablará de despliegues que se reparan solos combinando agentes con Argo Rollouts y de cómo la IA está abriendo el camino a experiencias web personalizadas construidas por agentes. La charla pondrá el foco en qué problemas nuevos merece la pena resolver cuando escribir código deja de ser el cuello de botella principal.',
         name: 'Carlos Sánchez',
         role: 'Principal Scientist at Adobe, Member at the Apache Software Foundation.',
         image: csanchez,
-        linkedin: 'https://www.linkedin.com/in/carlossg/'
+        linkedin: 'https://www.linkedin.com/in/carlossg/',
+        slug: 'carlos-sanchez',
+        talkTitle: 'Qué hacer cuando el coste de escribir código tiende a cero'
       },
       {
+        abstract:
+          'Daniel Mellado mostrará cómo la IA está transformando el desarrollo cloud-native con una demo en directo. Recuperará un plugin CNI presentado en KubeCon EU 2022 y lo rehará con herramientas actuales de IA, para después entrar en las preguntas más incómodas: qué está cambiando en el open source, qué valor real tienen hoy las licencias cuando hablamos de modelos de IA y qué estamos aceptando sin discutir demasiado.',
         name: 'Daniel Mellado',
         role: 'Principal Software Engineer at Red Hat.',
         image: dmellado,
-        linkedin: 'https://www.linkedin.com/in/danielmelladoarea/'
+        linkedin: 'https://www.linkedin.com/in/danielmelladoarea/',
+        slug: 'daniel-mellado',
+        talkTitle: 'De Co-Authored-By a CRDs: cómo la IA está transformando el desarrollo cloud-native'
       }
     ]
   },
   {
     time: '20:15 – 21:00',
     title: 'Mesa redonda: IA Responsable y Cloud Native',
-    text: 'Conversación sobre regulación, supervisión y el impacto de estas decisiones en el trabajo técnico.'
+    text: 'Conversación con los tres ponentes de la tarde, junto a Laura Lodeiro Gómez por parte de AESIA, moderada por Christian López Balsa, sobre regulación, supervisión y cómo todo esto aterriza en el trabajo técnico diario.',
+    participants: [
+      {
+        image: lauraLodeiro,
+        name: 'Laura Lodeiro Gómez',
+        role: 'Subdirectora Adjunta de Certificación, Evaluación de Tendencias, Coordinación y Formación en IA',
+        tag: 'AESIA'
+      },
+      {
+        image: christianLopezBalsa,
+        name: 'Christian López Balsa',
+        role: 'Head of kelea.tech & Partner',
+        tag: 'Modera'
+      }
+    ]
   },
   {
     time: '21:00 – 22:00',
-    title: 'Networking con cena',
-    text: 'Cierre de la jornada con catering y tiempo para conversar con el resto de asistentes.',
-    logo: kelea
+    title: 'Networking con pinchos',
+    text: 'Cierre de la jornada con pinchos y tiempo para conversar con el resto de asistentes.'
   }
 ];
 
@@ -91,7 +127,10 @@ const entities = [
   },
   {
     label: 'Patrocina',
-    items: [{ alt: 'Logotipo de Kelea', className: 'logo-image--kelea', logo: kelea, shape: 'wide', url: 'https://kelea.es' }]
+    items: [
+      { alt: 'Logotipo de Kelea', className: 'logo-image--kelea', logo: kelea, shape: 'wide', url: 'https://kelea.es' },
+      { alt: 'Logotipo de InditexTech', className: 'logo-image--inditextech', logo: inditextech, shape: 'wide', url: 'https://github.com/InditexTech' }
+    ]
   },
   {
     label: 'Colaboran',
@@ -109,13 +148,17 @@ const trustLogos = [
   { alt: 'Logotipo de GPUL', className: 'logo-image--gpul', logo: gpul, shape: 'square', url: 'https://gpul.org' },
   { alt: 'Logotipo de GDG A Coruña', className: 'logo-image--gdg', logo: gdgCoruna, shape: 'wide', url: 'https://gdg.community.dev/gdg-a-coruna/' },
   { alt: 'Logotipo de Kelea', className: 'logo-image--kelea', logo: kelea, shape: 'wide', url: 'https://kelea.es' },
+  { alt: 'Logotipo de InditexTech', className: 'logo-image--inditextech', logo: inditextech, shape: 'wide', url: 'https://github.com/InditexTech' },
   { alt: 'Logotipo de AESIA', className: 'logo-image--aesia', logo: aesia, shape: 'wide', url: 'https://aesia.digital.gob.es' },
   { alt: 'Logotipo do Concello da Coruña', className: 'logo-image--acoruna', logo: acoruna, shape: 'wide', url: 'https://www.coruna.gal' },
   { alt: 'Logotipo de CNCF Galicia', className: 'logo-image--cncf', logo: cncfGalicia, shape: 'square', url: 'https://community.cncf.io/cloud-native-galicia/' },
   { alt: 'Logotipo de Sysarmy Galicia', className: 'logo-image--sysarmy', logo: sysarmyGalicia, shape: 'wide', url: 'https://sysarmy.galicia.dev/' }
 ];
 
-function getLogoSrc(logo: typeof gdgCoruna | typeof gpul) {
+const studioFollowUrl = 'https://www.studiofollow.com/';
+const studioFollowMapsUrl = 'https://maps.app.goo.gl/fmZoNvDvvZHppf8h6';
+
+function getLogoSrc(logo: string | ImageMetadata) {
   return typeof logo === 'string' ? logo : logo.src;
 }
 
@@ -126,8 +169,9 @@ function getLogoContainerClasses(className: string) {
 
 function getLogoImageClasses(className: string) {
   const base = "logo-image grayscale contrast-125 hover:grayscale-0 transition-all h-full w-full object-contain";
-  if (className === 'logo-image--aesia') return "logo-image w-full h-full object-contain grayscale contrast-125 hover:grayscale-0 scale-110 hover:scale-100 transition-all duration-500";
+  if (className === 'logo-image--aesia') return "logo-image w-full h-full object-contain grayscale contrast-125 hover:grayscale-0 scale-110 transition-all duration-200";
   if (className === 'logo-image--cncf') return `${base} scale-125`;
+  if (className === 'logo-image--inditextech') return `${base} scale-110`;
   if (className === 'logo-image--kelea') return `${base} scale-110`;
   if (className === 'logo-image--gdg') return `${base}`;
   if (className === 'logo-image--gpul') return `${base} p-0 scale-110`;
@@ -163,13 +207,20 @@ function getLogoImageClasses(className: string) {
             <div class="flex flex-wrap items-center gap-3">
               <span class="border-2 border-black bg-yellow-300 px-3 py-1 text-xs font-black uppercase shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] tracking-widest">Miércoles, 13 de mayo de 2026</span>
               <span class="border-2 border-black bg-blue-400 px-3 py-1 text-xs font-black uppercase shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] tracking-widest text-white">18:30 – 22:00</span>
-              <span class="border-2 border-black bg-white px-3 py-1 text-xs font-black uppercase shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] tracking-widest">Centro Ágora · A Coruña</span>
+              <a
+                href={studioFollowUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="border-2 border-black bg-white px-3 py-1 text-xs font-black uppercase shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] tracking-widest transition-colors hover:bg-yellow-300"
+              >
+                Studio Follow · A Coruña
+              </a>
             </div>
             <h1 class="text-5xl font-black uppercase leading-[0.85] tracking-tighter md:text-8xl">
               Kubernetes & AI, <span class="italic text-[0.8em]">con sentidiño</span>
             </h1>
             <p class="max-w-2xl text-xl font-medium leading-tight md:text-2xl">
-              Un encuentro técnico en A Coruña para hablar de Kubernetes, IA en producción y supervisión responsable, con charlas, mesa redonda y una cena final.
+              Un encuentro técnico en A Coruña para hablar de Kubernetes, IA en producción y supervisión responsable, con charlas, mesa redonda y un cierre con pinchos.
             </p>
             <div class="pt-4">
               <RSVPCount client:load />
@@ -212,11 +263,11 @@ function getLogoImageClasses(className: string) {
             <div class="grid gap-0 md:grid-cols-3">
               <div class="border-black p-6 md:border-r-4">
                 <p class="text-xs font-black uppercase tracking-widest text-zinc-500">Aforo</p>
-                <p class="mt-2 text-3xl font-black uppercase tracking-tighter">80 plazas</p>
+                <p class="mt-2 text-3xl font-black uppercase tracking-tighter">150 plazas</p>
               </div>
               <div class="border-black p-6 md:border-r-4">
                 <p class="text-xs font-black uppercase tracking-widest text-zinc-500">Formato</p>
-                <p class="mt-2 text-3xl font-black uppercase tracking-tighter">Charlas + Cena</p>
+                <p class="mt-2 text-3xl font-black uppercase tracking-tighter">Charlas + Pinchos</p>
               </div>
               <div class="p-6">
                 <p class="text-xs font-black uppercase tracking-widest text-zinc-500">Enfoque</p>
@@ -256,7 +307,7 @@ function getLogoImageClasses(className: string) {
         <SectionHeading
           eyebrow="Agenda"
           title="Así será la tarde"
-          text="Un formato sencillo: bienvenida, bloque de charlas, mesa redonda y cierre con cena para seguir conversando."
+          text="Un formato sencillo: bienvenida, bloque de charlas, mesa redonda y cierre con pinchos para seguir conversando."
         />
 
         <div class="border-4 border-black bg-white shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] divide-y-4 divide-black">
@@ -272,38 +323,129 @@ function getLogoImageClasses(className: string) {
                   <h3 class="text-3xl font-black uppercase leading-none tracking-tighter text-black md:text-4xl">
                     {item.title}
                   </h3>
-                  {item.logo && (
-                    <div class="flex items-center gap-3 border-2 border-black bg-yellow-300 px-3 py-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rotate-[-1deg] w-fit">
-                      <span class="text-[10px] font-black uppercase tracking-tighter text-black">Ofrecido por</span>
-                      <img src={item.logo.src} alt="Kelea" class="h-6 w-auto" />
-                    </div>
-                  )}
                 </div>
                 <p class="text-lg font-medium leading-relaxed text-zinc-700">{item.text}</p>
                 {item.speakers && (
-                  <div class="grid gap-6 pt-4 sm:grid-cols-2 lg:grid-cols-3">
+                  <div class="grid gap-5 pt-4">
                     {item.speakers.map((speaker) => (
-                      <a 
-                        href={speaker.linkedin} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        class="group flex flex-col border-4 border-black bg-white p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all"
+                      <>
+                      <button
+                        type="button"
+                        data-dialog-target={`speaker-${speaker.slug}`}
+                        class="group grid cursor-pointer gap-4 border-4 border-black bg-white p-4 text-left shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all md:grid-cols-[160px_1fr]"
                       >
-                        <div class="mb-4 aspect-square overflow-hidden border-4 border-black">
+                        <div class="aspect-square overflow-hidden border-4 border-black md:aspect-[4/5]">
                           <img 
                             src={speaker.image.src} 
                             alt={speaker.name}
                             class="h-full w-full object-cover grayscale transition-all group-hover:grayscale-0"
                           />
                         </div>
-                        <h4 class="text-xl font-black uppercase leading-[0.9] tracking-tighter">
-                          {speaker.name}
-                        </h4>
-                        <p class="mt-2 text-sm font-bold leading-snug text-zinc-600">
-                          {speaker.role}
-                        </p>
-                      </a>
+                        <div class="flex min-w-0 flex-col justify-between">
+                          <div>
+                            <h4 class="text-2xl font-black uppercase leading-[0.9] tracking-tighter">
+                              {speaker.name}
+                            </h4>
+                            <p class="mt-2 text-xs font-black uppercase tracking-wide text-zinc-500">
+                              {speaker.role}
+                            </p>
+                            <p class="mt-5 max-w-2xl text-lg font-black uppercase leading-tight tracking-tight text-blue-700">
+                              {speaker.talkTitle}
+                            </p>
+                          </div>
+                          <span class="mt-6 inline-block text-[10px] font-black uppercase tracking-widest text-zinc-500">
+                            Ver detalle
+                          </span>
+                        </div>
+                      </button>
+
+                      <dialog id={`speaker-${speaker.slug}`} class="fixed left-1/2 top-1/2 m-0 w-[min(820px,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 border-4 border-black bg-white p-0 shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] backdrop:bg-black/70">
+                        <div class="p-6 md:p-8">
+                          <div class="flex items-start justify-between gap-6">
+                            <div class="space-y-3">
+                              <p class="text-xs font-black uppercase tracking-widest text-zinc-500">Charla confirmada</p>
+                              <h4 class="text-3xl font-black uppercase leading-none tracking-tighter text-black">
+                                {speaker.talkTitle}
+                              </h4>
+                              <p class="text-sm font-bold uppercase tracking-wide text-zinc-600">
+                                {speaker.name}
+                              </p>
+                            </div>
+                            <button
+                              type="button"
+                              data-dialog-close
+                              class="shrink-0 border-2 border-black bg-white px-3 py-2 text-xs font-black uppercase tracking-widest hover:bg-yellow-300 transition-colors"
+                            >
+                              Cerrar
+                            </button>
+                          </div>
+
+                          <div class="mt-6 grid gap-6 md:grid-cols-[180px_1fr] md:items-start">
+                            <div class="aspect-square overflow-hidden border-4 border-black bg-white">
+                              <img
+                                src={speaker.image.src}
+                                alt={speaker.name}
+                                class="h-full w-full object-cover grayscale"
+                              />
+                            </div>
+
+                            <div>
+                              <p class="text-sm font-bold uppercase tracking-wide text-zinc-600">
+                                {speaker.role}
+                              </p>
+                              <p class="mt-4 text-base font-medium leading-8 text-zinc-700">
+                                {speaker.abstract}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="mt-8 flex flex-wrap gap-3">
+                            <a
+                              href={speaker.linkedin}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="border-2 border-black bg-blue-600 px-4 py-2 text-xs font-black uppercase tracking-widest text-white hover:bg-blue-700 transition-colors"
+                            >
+                              Ver perfil
+                            </a>
+                          </div>
+                        </div>
+                      </dialog>
+                      </>
                     ))}
+                  </div>
+                )}
+                {item.participants && (
+                  <div class="pt-4">
+                    <p class="mb-4 text-xs font-black uppercase tracking-widest text-zinc-500">
+                      Participan también en la mesa redonda
+                    </p>
+                    <div class="grid gap-5 pt-4">
+                      {item.participants.map((participant) => (
+                        <article class="grid gap-4 border-4 border-black bg-white p-4 text-left shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all md:grid-cols-[160px_1fr]">
+                          <div class="aspect-square overflow-hidden border-4 border-black md:aspect-[4/5]">
+                            <img
+                              src={participant.image.src}
+                              alt={participant.name}
+                              class="h-full w-full object-cover grayscale"
+                            />
+                          </div>
+                          <div class="flex min-w-0 flex-col justify-between">
+                            <div>
+                              <p class="inline-block bg-yellow-300 px-2 py-1 text-[10px] font-black uppercase tracking-widest text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                                {participant.tag}
+                              </p>
+                              <h4 class="mt-4 text-2xl font-black uppercase leading-[0.9] tracking-tighter">
+                                {participant.name}
+                              </h4>
+                              <p class="mt-2 text-xs font-black uppercase tracking-wide text-zinc-500">
+                                {participant.role}
+                              </p>
+                            </div>
+                          </div>
+                        </article>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
@@ -368,8 +510,28 @@ function getLogoImageClasses(className: string) {
             <ul class="mt-6 space-y-4 text-base font-bold leading-tight">
               <li class="flex gap-2"><span>•</span> <span>Miércoles, 13 de mayo de 2026</span></li>
               <li class="flex gap-2"><span>•</span> <span>18:30 – 22:00</span></li>
-              <li class="flex gap-2"><span>•</span> <span>Centro Ágora, A Coruña</span></li>
-              <li class="flex gap-2"><span>•</span> <span>Cena networking (ofrecida por Kelea)</span></li>
+              <li class="flex gap-2">
+                <span>•</span>
+                <span>
+                  <a
+                    href={studioFollowUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="underline decoration-2 underline-offset-4 transition-colors hover:text-black"
+                  >
+                    Studio Follow
+                  </a>
+                  <a
+                    href={studioFollowMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="ml-2 underline decoration-2 underline-offset-4 transition-colors hover:text-black"
+                  >
+                    Ver en Maps
+                  </a>
+                </span>
+              </li>
+              <li class="flex gap-2"><span>•</span> <span>Networking con pinchos para asistentes confirmados</span></li>
             </ul>
           </div>
         </div>
@@ -377,5 +539,51 @@ function getLogoImageClasses(className: string) {
         <RSVPForm client:load />
       </div>
     </section>
+
+    <footer class="mx-auto max-w-4xl px-4 pb-16">
+      <div class="border-t-4 border-black pt-6 text-sm font-bold leading-relaxed text-zinc-600">
+        <p>
+          Vibecoded by Codex with the help of some humans, available under MIT.
+          <a
+            href="https://github.com/gpul-org/kubernetes-day"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ml-1 underline decoration-2 underline-offset-4 transition-colors hover:text-black"
+          >
+            View the repository
+          </a>
+        </p>
+      </div>
+    </footer>
   </main>
+
+  <script>
+    document.querySelectorAll('[data-dialog-target]').forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const targetId = trigger.getAttribute('data-dialog-target');
+        if (!targetId) return;
+        const dialog = document.getElementById(targetId);
+        if (dialog instanceof HTMLDialogElement) {
+          dialog.showModal();
+        }
+      });
+    });
+
+    document.querySelectorAll('dialog').forEach((dialog) => {
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) {
+          dialog.close();
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-dialog-close]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const dialog = button.closest('dialog');
+        if (dialog instanceof HTMLDialogElement) {
+          dialog.close();
+        }
+      });
+    });
+  </script>
 </BaseLayout>

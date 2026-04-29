@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const COUNT_URL = import.meta.env.PUBLIC_RSVP_COUNT_URL;
-export const RSVP_LIMIT = 80;
+export const RSVP_LIMIT = 150;
 
 export type CountState =
   | { kind: 'loading' }
