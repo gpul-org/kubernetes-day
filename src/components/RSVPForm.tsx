@@ -75,7 +75,7 @@ export function RSVPForm() {
   const isConfigured = useMemo(() => Boolean(BOOKING_URL), []);
   const isSubmitting = submitState.kind === 'loading';
   const isWaitlist =
-    countState.kind === 'ready' && countState.count > RSVP_LIMIT;
+    countState.kind === 'ready' && countState.count >= RSVP_LIMIT;
 
   const submitLabel =
     submitState.kind === 'loading'
@@ -186,7 +186,7 @@ export function RSVPForm() {
         </p>
         {isWaitlist && (
           <p className="inline-block border-2 border-black bg-zinc-100 px-3 py-2 text-xs font-black uppercase leading-tight tracking-wide text-black">
-            Aforo completo. Si te apuntas ahora, entrarás en lista de espera. Estamos trabajando para encontrar un espacio mejor y poder acoger a más gente.
+            Aforo completo. Apúntate a la lista de espera por si alguien nos avisa que no viene.
           </p>
         )}
       </div>
