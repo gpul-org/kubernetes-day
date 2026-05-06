@@ -76,19 +76,22 @@ export function RSVPForm() {
   const isSubmitting = submitState.kind === 'loading';
   const isWaitlist =
     countState.kind === 'ready' && countState.count >= RSVP_LIMIT;
+  const formClosed = isWaitlist || submitState.kind === 'sold-out' || submitState.kind === 'success';
 
   const submitLabel =
     submitState.kind === 'loading'
       ? 'Enviando...'
-      : isWaitlist
-        ? 'Unirme a la lista de espera'
+      : formClosed
+        ? 'Sold out'
         : 'Reservar mi plaza';
-
-  const soldOut = submitState.kind === 'sold-out';
-  const success = submitState.kind === 'success';
+  const tapeText = 'Sold Out   Sold Out   Sold Out   Sold Out   Sold Out';
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (formClosed) {
+      return;
+    }
 
     const nextErrors = validate(values);
     setErrors(nextErrors);
@@ -173,20 +176,48 @@ export function RSVPForm() {
   }
 
   return (
-    <div className="border-4 border-black bg-white p-6 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] md:p-10">
+    <div className="relative overflow-hidden border-4 border-black bg-white p-6 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] md:p-10">
+      {formClosed && (
+        <>
+          <div className="pointer-events-none absolute inset-0 z-10 bg-white/65 backdrop-blur-[1px]" aria-hidden="true" />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -left-12 top-32 z-20 w-[140%] rotate-[13deg] border-y-4 border-black bg-[repeating-linear-gradient(-45deg,#facc15_0_18px,#111827_18px_36px)] py-3 shadow-[0_8px_0_0_rgba(0,0,0,0.75)] md:top-40"
+          >
+            <p className="whitespace-nowrap text-center text-lg font-black uppercase tracking-[0.28em] text-white [text-shadow:3px_3px_0_rgba(0,0,0,1)] md:text-2xl">
+              {tapeText}
+            </p>
+          </div>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -left-12 top-52 z-20 w-[140%] -rotate-[12deg] border-y-4 border-black bg-[repeating-linear-gradient(-45deg,#facc15_0_18px,#111827_18px_36px)] py-3 shadow-[0_8px_0_0_rgba(0,0,0,0.75)] md:top-60"
+          >
+            <p className="whitespace-nowrap text-center text-lg font-black uppercase tracking-[0.28em] text-white [text-shadow:3px_3px_0_rgba(0,0,0,1)] md:text-2xl">
+              {tapeText}
+            </p>
+          </div>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute right-4 top-6 z-30 rotate-6 border-4 border-black bg-red-500 px-4 py-2 text-sm font-black uppercase tracking-[0.3em] text-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:right-8 md:top-8 md:text-base"
+          >
+            Closed
+          </div>
+        </>
+      )}
+
       <div className="mb-10 space-y-4">
         <p className="inline-block bg-black px-2 py-0.5 text-xs font-black uppercase tracking-widest text-white">
           Inscripción
         </p>
         <h3 className="text-4xl font-black uppercase leading-none tracking-tighter text-black md:text-5xl">
-          Apúntate ya
+          {formClosed ? 'Inscripción cerrada' : 'Apúntate ya'}
         </h3>
         <p className="text-lg font-bold leading-tight text-zinc-600">
           Aforo limitado a 150 personas.
         </p>
         {isWaitlist && (
           <p className="inline-block border-2 border-black bg-zinc-100 px-3 py-2 text-xs font-black uppercase leading-tight tracking-wide text-black">
-            Aforo completo. Apúntate a la lista de espera por si alguien nos avisa que no viene.
+            Aforo completo. Formulario cerrado.
           </p>
         )}
       </div>
@@ -197,14 +228,14 @@ export function RSVPForm() {
         </div>
       )}
 
-      <form className="space-y-6" onSubmit={handleSubmit} noValidate>
+      <form className={formClosed ? 'space-y-6 opacity-50 grayscale' : 'space-y-6'} onSubmit={handleSubmit} noValidate>
         <div className="grid gap-6 md:grid-cols-2">
           <label className="block text-xs font-black uppercase tracking-widest text-black">
             Nombre completo
             <input
               autoComplete="name"
               className={fieldClassName}
-              disabled={isSubmitting || soldOut || success}
+              disabled={isSubmitting || formClosed}
               name="fullName"
               onChange={(event) =>
                 setValues((current) => ({ ...current, fullName: event.target.value }))
@@ -224,7 +255,7 @@ export function RSVPForm() {
             <input
               autoComplete="organization-title"
               className={fieldClassName}
-              disabled={isSubmitting || soldOut || success}
+              disabled={isSubmitting || formClosed}
               name="role"
               onChange={(event) =>
                 setValues((current) => ({ ...current, role: event.target.value }))
@@ -246,7 +277,7 @@ export function RSVPForm() {
             <input
               autoComplete="organization"
               className={fieldClassName}
-              disabled={isSubmitting || soldOut || success}
+              disabled={isSubmitting || formClosed}
               name="company"
               onChange={(event) =>
                 setValues((current) => ({ ...current, company: event.target.value }))
@@ -261,7 +292,7 @@ export function RSVPForm() {
             <input
               autoComplete="email"
               className={fieldClassName}
-              disabled={isSubmitting || soldOut || success}
+              disabled={isSubmitting || formClosed}
               name="email"
               onChange={(event) =>
                 setValues((current) => ({ ...current, email: event.target.value }))
@@ -282,7 +313,7 @@ export function RSVPForm() {
           Restricciones alimentarias
           <textarea
             className={`${fieldClassName} min-h-32 resize-none`}
-            disabled={isSubmitting || soldOut || success}
+            disabled={isSubmitting || formClosed}
             name="dietaryRestrictions"
             onChange={(event) =>
               setValues((current) => ({
@@ -302,7 +333,7 @@ export function RSVPForm() {
 
         <button
           className="w-full border-4 border-black bg-red-500 py-4 text-xl font-black uppercase text-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all hover:-translate-y-1 hover:bg-red-600 hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] active:translate-y-0 active:shadow-none disabled:cursor-not-allowed disabled:opacity-50"
-          disabled={isSubmitting || soldOut || success}
+          disabled={isSubmitting || formClosed}
           type="submit"
         >
           {submitLabel}
